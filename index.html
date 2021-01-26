@@ -52,6 +52,12 @@
     li.game-bottom{ 
         border-top:1px solid #aaa;
     }
+
+    .fightButton {
+      position: relative;
+      top: 25%;
+      left: 70%;
+    }
 </style>
 </head>
 <body>
@@ -60,58 +66,58 @@
       <ul class="round round-1">
         <li class="spacer">&nbsp;</li>
         
-        <li class="game game-top"><span></span></li>
-        <li class="game game-spacer">&nbsp;</li>
-        <li class="game game-bottom "><span></span></li>
+        <li id="p1" class="game game-top"><span class="totalStats"></span></li>
+        <li class="game game-spacer">&nbsp;<button id="R1Button1" class="fightButton">Fight</button></li>
+        <li id="p2" class="game game-bottom "><span class="totalStats"></span></li>
     
         <li class="spacer">&nbsp;</li>
         
-        <li class="game game-top"><span></span></li>
+        <li id="p3" class="game game-top"><span></span></li>
         <li class="game game-spacer">&nbsp;</li>
-        <li class="game game-bottom "><span></span></li>
+        <li id="p4" class="game game-bottom "><span></span></li>
     
         <li class="spacer">&nbsp;</li>
         
-        <li class="game game-top "><span></span></li>
+        <li id="p5" class="game game-top "><span></span></li>
         <li class="game game-spacer">&nbsp;</li>
-        <li class="game game-bottom"><span></span></li>
+        <li id="p6" class="game game-bottom"><span></span></li>
     
         <li class="spacer">&nbsp;</li>
         
-        <li class="game game-top"><span></span></li>
+        <li id="p7" class="game game-top"><span></span></li>
         <li class="game game-spacer">&nbsp;</li>
-        <li class="game game-bottom "><span></span></li>
+        <li id="p8" class="game game-bottom "><span></span></li>
     
         <li class="spacer">&nbsp;</li>
         
-        <li class="game game-top"><span></span></li>
+        <li id="p9" class="game game-top"><span></span></li>
         <li class="game game-spacer">&nbsp;</li>
-        <li class="game game-bottom "><span></span></li>
+        <li id="p10" class="game game-bottom "><span></span></li>
     
         <li class="spacer">&nbsp;</li>
         
-        <li class="game game-top"><span></span></li>
+        <li id="p11" class="game game-top"><span></span></li>
         <li class="game game-spacer">&nbsp;</li>
-        <li class="game game-bottom "><span></span></li>
+        <li id="p12" class="game game-bottom "><span></span></li>
     
         <li class="spacer">&nbsp;</li>
         
-        <li class="game game-top"><span></span></li>
+        <li id="p13" class="game game-top"><span></span></li>
         <li class="game game-spacer">&nbsp;</li>
-        <li class="game game-bottom "><span></span></li>
+        <li id="p14" class="game game-bottom "><span></span></li>
     
         <li class="spacer">&nbsp;</li>
         
-        <li class="game game-top"><span></span></li>
+        <li id="p15" class="game game-top"><span></span></li>
         <li class="game game-spacer">&nbsp;</li>
-        <li class="game game-bottom "><span></span></li>
+        <li id="p16" class="game game-bottom "><span></span></li>
     
         <li class="spacer">&nbsp;</li>
       </ul>
       <ul class="round round-2">
         <li class="spacer">&nbsp;</li>
         
-        <li class="game game-top"><span></span></li>
+        <li id="p17" class="game game-top"><span></span></li>
         <li class="game game-spacer">&nbsp;</li>
         <li class="game game-bottom "><span></span></li>
     
@@ -166,5 +172,9 @@
         <li class="spacer">&nbsp;</li>
       </ul>
     </main>
+    <button id="play">Let's Play</button>
+
+    <script type="text/javascript" src="jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="index.js"></script>
 </body>
 </html>
