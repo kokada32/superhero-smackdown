@@ -1,8 +1,9 @@
 var url = "https://superheroapi.com/api";
 var token = "10157265635562126";
-let statsArr = [];
+// let statsArr = [];
+let nameStatsArr = [];
 
-//Lets Play Button displays Superheros for Round One
+//'Lets Play' Button displays Superheros for Round One creates array of object with name and totalStat of superheroes
 
 $("#play").on("click", function () {
     let idArr = [];
@@ -22,6 +23,7 @@ $("#play").on("click", function () {
     //     num = Math.floor(Math.random() * 731) + 1;
 
     // }
+
     let pos = 1;
     for (var j = 0; j < idArr.length; j++){
         let heroId = idArr[j];
@@ -30,293 +32,120 @@ $("#play").on("click", function () {
             function(results) {
                 $(`#p${pos}`).html(results.name + "<span class='totalStats'></span>");
                 pos = pos + 1;
-                statsArr.push(results)
+                numArr = [];
+                numArr.push(parseInt(results.powerstats.combat));
+                numArr.push(parseInt(results.powerstats.durability));
+                numArr.push(parseInt(results.powerstats.intelligence));
+                numArr.push(parseInt(results.powerstats.power));
+                numArr.push(parseInt(results.powerstats.speed));
+                numArr.push(parseInt(results.powerstats.strength));
+
+                for (var i = 0; i < numArr.length; i++) {
+                    if (isNaN(numArr[i]) ) {
+                        numArr[i] = 0;
+                    }
+                }   
+
+                var sum = numArr.reduce(function(a, b){
+                    return a + b;
+                });
+
+                let obj = {};
+                obj.name = results.name;
+                obj.totalStat = sum;
+                nameStatsArr.push(obj);
             }
         )
     }
+    console.log(nameStatsArr);
 });
-console.log(statsArr);
 
-//Round One Fight Buttons
-let sumArr = [];
+//Round One 'Fight' Buttons displays totalStat and winner of duel in the next round
 
 $("#R1Button1").on("click", function () {
-    for (var j = 0; j < 2; j++) {
-        numArr = [];
-        numArr.push(parseInt(statsArr[j].powerstats.combat));
-        numArr.push(parseInt(statsArr[j].powerstats.durability));
-        numArr.push(parseInt(statsArr[j].powerstats.intelligence));
-        numArr.push(parseInt(statsArr[j].powerstats.power));
-        numArr.push(parseInt(statsArr[j].powerstats.speed));
-        numArr.push(parseInt(statsArr[j].powerstats.strength));
+    $("#p1 > span.totalStats").text(nameStatsArr[0].totalStat);
+    $("#p2 > span.totalStats").text(nameStatsArr[1].totalStat);
 
-        for (var i = 0; i < numArr.length; i++) {
-            if (isNaN(numArr[i]) ) {
-                numArr[i] = 0;
-            }
-        }   
-
-        var sum = numArr.reduce(function(a, b){
-            return a + b;
-        });
-
-        sumArr.push(sum);
-        $("#p1 > span.totalStats").text(sumArr[0]);
-        $("#p2 > span.totalStats").text(sumArr[1]);
-        
-    }
-
-    if (sumArr[0] > sumArr[1]) {
-        $("#p17").html(statsArr[0].name + "<span class='totalStats'></span>");
+    if (nameStatsArr[0].totalStat > nameStatsArr[1].totalStat) {
+        $("#p17").html(nameStatsArr[0].name + "<span class='totalStats'></span>");
     } else {
-        $("#p17").html(statsArr[1].name + "<span class='totalStats'></span>");
+        $("#p17").html(nameStatsArr[1].name + "<span class='totalStats'></span>");
     }
-
-    sumArr = [];
-
 });
 
 $("#R1Button2").on("click", function () {
-    for (var j = 2; j < 4; j++) {
-        numArr = [];
-        numArr.push(parseInt(statsArr[j].powerstats.combat));
-        numArr.push(parseInt(statsArr[j].powerstats.durability));
-        numArr.push(parseInt(statsArr[j].powerstats.intelligence));
-        numArr.push(parseInt(statsArr[j].powerstats.power));
-        numArr.push(parseInt(statsArr[j].powerstats.speed));
-        numArr.push(parseInt(statsArr[j].powerstats.strength));
+    $("#p3 > span.totalStats").text(nameStatsArr[2].totalStat);
+    $("#p4 > span.totalStats").text(nameStatsArr[3].totalStat);
 
-        for (var i = 0; i < numArr.length; i++) {
-            if (isNaN(numArr[i]) ) {
-                numArr[i] = 0;
-            }
-        }   
-
-        var sum = numArr.reduce(function(a, b){
-            return a + b;
-        });
-
-        sumArr.push(sum);
-        $("#p3 > span.totalStats").text(sumArr[0]);
-        $("#p4 > span.totalStats").text(sumArr[1]);
-
-    }
-
-    if (sumArr[0] > sumArr[1]) {
-        $("#p18").html(statsArr[2].name + "<span class='totalStats'></span>");
+    if (nameStatsArr[2].totalStat > nameStatsArr[3].totalStat) {
+        $("#p18").html(nameStatsArr[2].name + "<span class='totalStats'></span>");
     } else {
-        $("#p18").html(statsArr[3].name + "<span class='totalStats'></span>");
+        $("#p18").html(nameStatsArr[3].name + "<span class='totalStats'></span>");
     }
-
-    sumArr = [];
 });
 
 $("#R1Button3").on("click", function () {
-    for (var j = 4; j < 6; j++) {
-        numArr = [];
-        numArr.push(parseInt(statsArr[j].powerstats.combat));
-        numArr.push(parseInt(statsArr[j].powerstats.durability));
-        numArr.push(parseInt(statsArr[j].powerstats.intelligence));
-        numArr.push(parseInt(statsArr[j].powerstats.power));
-        numArr.push(parseInt(statsArr[j].powerstats.speed));
-        numArr.push(parseInt(statsArr[j].powerstats.strength));
+    $("#p5 > span.totalStats").text(nameStatsArr[4].totalStat);
+    $("#p6 > span.totalStats").text(nameStatsArr[5].totalStat);
 
-        for (var i = 0; i < numArr.length; i++) {
-            if (isNaN(numArr[i]) ) {
-                numArr[i] = 0;
-            }
-        }   
-
-        var sum = numArr.reduce(function(a, b){
-            return a + b;
-        });
-
-        sumArr.push(sum);
-        $("#p5 > span.totalStats").text(sumArr[0]);
-        $("#p6 > span.totalStats").text(sumArr[1]);
-
-    }
-
-    if (sumArr[0] > sumArr[1]) {
-        $("#p19").html(statsArr[4].name + "<span class='totalStats'></span>");
+    if (nameStatsArr[4].totalStat > nameStatsArr[5].totalStat) {
+        $("#p19").html(nameStatsArr[4].name + "<span class='totalStats'></span>");
     } else {
-        $("#p19").html(statsArr[5].name + "<span class='totalStats'></span>");
+        $("#p19").html(nameStatsArr[5].name + "<span class='totalStats'></span>");
     }
-
-    sumArr = [];
 });
 
 $("#R1Button4").on("click", function () {
-    for (var j = 6; j < 8; j++) {
-        numArr = [];
-        numArr.push(parseInt(statsArr[j].powerstats.combat));
-        numArr.push(parseInt(statsArr[j].powerstats.durability));
-        numArr.push(parseInt(statsArr[j].powerstats.intelligence));
-        numArr.push(parseInt(statsArr[j].powerstats.power));
-        numArr.push(parseInt(statsArr[j].powerstats.speed));
-        numArr.push(parseInt(statsArr[j].powerstats.strength));
+    $("#p7 > span.totalStats").text(nameStatsArr[6].totalStat);
+    $("#p8 > span.totalStats").text(nameStatsArr[7].totalStat);
 
-        for (var i = 0; i < numArr.length; i++) {
-            if (isNaN(numArr[i]) ) {
-                numArr[i] = 0;
-            }
-        }   
-
-        var sum = numArr.reduce(function(a, b){
-            return a + b;
-        });
-
-        sumArr.push(sum);
-        $("#p7 > span.totalStats").text(sumArr[0]);
-        $("#p8 > span.totalStats").text(sumArr[1]);
-
-    }
-
-    if (sumArr[0] > sumArr[1]) {
-        $("#p20").html(statsArr[6].name + "<span class='totalStats'></span>");
+    if (nameStatsArr[6].totalStat > nameStatsArr[7].totalStat) {
+        $("#p20").html(nameStatsArr[6].name + "<span class='totalStats'></span>");
     } else {
-        $("#p20").html(statsArr[7].name + "<span class='totalStats'></span>");
+        $("#p20").html(nameStatsArr[7].name + "<span class='totalStats'></span>");
     }
-
-    sumArr = [];
 });
 
 $("#R1Button5").on("click", function () {
-    for (var j = 8; j < 10; j++) {
-        numArr = [];
-        numArr.push(parseInt(statsArr[j].powerstats.combat));
-        numArr.push(parseInt(statsArr[j].powerstats.durability));
-        numArr.push(parseInt(statsArr[j].powerstats.intelligence));
-        numArr.push(parseInt(statsArr[j].powerstats.power));
-        numArr.push(parseInt(statsArr[j].powerstats.speed));
-        numArr.push(parseInt(statsArr[j].powerstats.strength));
+    $("#p9 > span.totalStats").text(nameStatsArr[8].totalStat);
+    $("#p10 > span.totalStats").text(nameStatsArr[9].totalStat);
 
-        for (var i = 0; i < numArr.length; i++) {
-            if (isNaN(numArr[i]) ) {
-                numArr[i] = 0;
-            }
-        }   
-
-        var sum = numArr.reduce(function(a, b){
-            return a + b;
-        });
-
-        sumArr.push(sum);
-        $("#p9 > span.totalStats").text(sumArr[0]);
-        $("#p10 > span.totalStats").text(sumArr[1]);
-
-    }
-
-    if (sumArr[0] > sumArr[1]) {
-        $("#p21").html(statsArr[8].name + "<span class='totalStats'></span>");
+    if (nameStatsArr[8].totalStat > nameStatsArr[9].totalStat) {
+        $("#p21").html(nameStatsArr[8].name + "<span class='totalStats'></span>");
     } else {
-        $("#p21").html(statsArr[9].name + "<span class='totalStats'></span>");
+        $("#p21").html(nameStatsArr[9].name + "<span class='totalStats'></span>");
     }
-
-    sumArr = [];
 });
 
 $("#R1Button6").on("click", function () {
-    for (var j = 10; j < 12; j++) {
-        numArr = [];
-        numArr.push(parseInt(statsArr[j].powerstats.combat));
-        numArr.push(parseInt(statsArr[j].powerstats.durability));
-        numArr.push(parseInt(statsArr[j].powerstats.intelligence));
-        numArr.push(parseInt(statsArr[j].powerstats.power));
-        numArr.push(parseInt(statsArr[j].powerstats.speed));
-        numArr.push(parseInt(statsArr[j].powerstats.strength));
+    $("#p11 > span.totalStats").text(nameStatsArr[10].totalStat);
+    $("#p12 > span.totalStats").text(nameStatsArr[11].totalStat);
 
-        for (var i = 0; i < numArr.length; i++) {
-            if (isNaN(numArr[i]) ) {
-                numArr[i] = 0;
-            }
-        }   
-
-        var sum = numArr.reduce(function(a, b){
-            return a + b;
-        });
-
-        sumArr.push(sum);
-        $("#p11 > span.totalStats").text(sumArr[0]);
-        $("#p12 > span.totalStats").text(sumArr[1]);
-
-    }
-
-    if (sumArr[0] > sumArr[1]) {
-        $("#p22").html(statsArr[10].name + "<span class='totalStats'></span>");
+    if (nameStatsArr[10].totalStat > nameStatsArr[11].totalStat) {
+        $("#p22").html(nameStatsArr[10].name + "<span class='totalStats'></span>");
     } else {
-        $("#p22").html(statsArr[11].name + "<span class='totalStats'></span>");
+        $("#p22").html(nameStatsArr[11].name + "<span class='totalStats'></span>");
     }
-
-    sumArr = [];
 });
 
 $("#R1Button7").on("click", function () {
-    for (var j = 12; j < 14; j++) {
-        numArr = [];
-        numArr.push(parseInt(statsArr[j].powerstats.combat));
-        numArr.push(parseInt(statsArr[j].powerstats.durability));
-        numArr.push(parseInt(statsArr[j].powerstats.intelligence));
-        numArr.push(parseInt(statsArr[j].powerstats.power));
-        numArr.push(parseInt(statsArr[j].powerstats.speed));
-        numArr.push(parseInt(statsArr[j].powerstats.strength));
+    $("#p13 > span.totalStats").text(nameStatsArr[12].totalStat);
+    $("#p14 > span.totalStats").text(nameStatsArr[13].totalStat);
 
-        for (var i = 0; i < numArr.length; i++) {
-            if (isNaN(numArr[i]) ) {
-                numArr[i] = 0;
-            }
-        }   
-
-        var sum = numArr.reduce(function(a, b){
-            return a + b;
-        });
-
-        sumArr.push(sum);
-        $("#p13 > span.totalStats").text(sumArr[0]);
-        $("#p14 > span.totalStats").text(sumArr[1]);
-
-    }
-
-    if (sumArr[0] > sumArr[1]) {
-        $("#p23").html(statsArr[12].name + "<span class='totalStats'></span>");
+    if (nameStatsArr[12].totalStat > nameStatsArr[13].totalStat) {
+        $("#p23").html(nameStatsArr[12].name + "<span class='totalStats'></span>");
     } else {
-        $("#p23").html(statsArr[13].name + "<span class='totalStats'></span>");
+        $("#p23").html(nameStatsArr[13].name + "<span class='totalStats'></span>");
     }
-
-    sumArr = [];
 });
 
 $("#R1Button8").on("click", function () {
-    for (var j = 14; j < 16; j++) {
-        numArr = [];
-        numArr.push(parseInt(statsArr[j].powerstats.combat));
-        numArr.push(parseInt(statsArr[j].powerstats.durability));
-        numArr.push(parseInt(statsArr[j].powerstats.intelligence));
-        numArr.push(parseInt(statsArr[j].powerstats.power));
-        numArr.push(parseInt(statsArr[j].powerstats.speed));
-        numArr.push(parseInt(statsArr[j].powerstats.strength));
+    $("#p15 > span.totalStats").text(nameStatsArr[14].totalStat);
+    $("#p16 > span.totalStats").text(nameStatsArr[15].totalStat);
 
-        for (var i = 0; i < numArr.length; i++) {
-            if (isNaN(numArr[i]) ) {
-                numArr[i] = 0;
-            }
-        }   
-
-        var sum = numArr.reduce(function(a, b){
-            return a + b;
-        });
-
-        sumArr.push(sum);
-        $("#p15 > span.totalStats").text(sumArr[0]);
-        $("#p16 > span.totalStats").text(sumArr[1]);
-
-    }
-
-    if (sumArr[0] > sumArr[1]) {
-        $("#p24").html(statsArr[14].name + "<span class='totalStats'></span>");
+    if (nameStatsArr[14].totalStat > nameStatsArr[15].totalStat) {
+        $("#p24").html(nameStatsArr[14].name + "<span class='totalStats'></span>");
     } else {
-        $("#p24").html(statsArr[15].name + "<span class='totalStats'></span>");
+        $("#p24").html(nameStatsArr[15].name + "<span class='totalStats'></span>");
     }
-
-    sumArr = [];
 });
