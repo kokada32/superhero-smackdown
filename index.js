@@ -157,9 +157,76 @@ $("#R3Button2").on("click", function () {
 });
 
 
-//Round FOUR CHAMPIONSHIP 'Fight' button displays the winner of the tournament
+//Round FOUR CHAMPIONSHIP 'Fight' button displays the winner of the tournament and winnersList
 
-$("#R4Button1").on("click", function () {
+const winnersCollection = firebase.database().ref("winner");
+
+$("#R4Button1").on("click", function (e) {
+    e.preventDefault();
     fight2("#p29", "#p30", "#p31");
+
+    //Creates list of winners
+    let winnerName = $("#p31").text();
+    let winnerStats = nameStatsArr.find(hero => hero.name === winnerName);
+    winnersCollection.push({
+        name: winnerName,
+        stats: winnerStats.totalStat,
+        votes: 0
+    });
+
+    //Read list of winners and displays them
+    winnersCollection.on('value', function (results) {
+        const $winnersList = $("#winnersList");
+        $winnersList.empty();
+        $winnersList.html("<h1 id='winnersTitle'>Winners</h1>")
+        results.forEach(function (result){
+            const { name, stats, votes } = result.val();
+            const key = result.key;
+            const $li = $("<li>").attr("data-winner-id", key).text(name + "  " + stats);
+            const $right = $("<div>").addClass("right").text(votes);
+            const $upvote = $("<a>").attr("href", "#").addClass("upvote").text("+");
+            const $downvote = $("<a>").attr("href", "#").addClass("downvote").text("-");
+            const $remove = $("<a>").attr("href", "#").addClass("remove").text("X");
+
+            $right.prepend($downvote);
+            $right.append($upvote);
+            $right.append($remove);
+            $li.append($right);
+            $winnersList.append($li);
+
+        })
+    })
 });
- 
+
+//Update list of votes
+
+$('#winnersList').on('click', 'a.upvote', function(event) {
+    event.preventDefault();
+    const key = $(event.target).closest('li').attr('data-winner-id')
+    const winnerVotes = winnersCollection.child(key).child('votes');
+    winnerVotes.transaction(function (votes) {
+      return votes + 1;
+    });
+  });
+
+$('#winnersList').on('click', 'a.downvote', function(event) {
+    event.preventDefault();
+    const key = $(event.target).closest('li').attr('data-winner-id')
+    const winnerVotes = winnersCollection.child(key).child('votes');
+    winnerVotes.transaction(function (votes) {
+        if (votes === 0) {
+        return votes;
+        }
+        return votes - 1;
+    });
+});
+
+//Deletes winner from the list
+
+$('#winnersList').on('click', 'a.remove', function(event) {
+    event.preventDefault();
+    
+    const key = $(event.target).closest('li').attr('data-winner-id');
+    const winnerObj = winnersCollection.child(key);
+    winnerObj.remove();
+});
