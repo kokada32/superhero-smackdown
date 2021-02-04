@@ -190,7 +190,7 @@ $("#R4Button1").on("click", function (e) {
 
             $right.prepend($downvote);
             $right.append($upvote);
-            $right.append($remove);
+            $li.prepend($remove);
             $li.append($right);
             $winnersList.append($li);
 
